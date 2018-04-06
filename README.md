@@ -1,11 +1,9 @@
 ![](https://github.com/LA3QMA/PATPiBox/blob/master/img/preview.png)
 ![](http://i.imgur.com/xeKD93p.png)
 # `$ raspap-webgui` [![Release 1.3.1](https://img.shields.io/badge/Release-1.3.1-green.svg)](https://github.com/billz/raspap-webgui/releases)
-A simple, responsive web interface to control wifi, hostapd and related services on the Raspberry Pi.
+A simple, responsive web interface to control PAT (winlink client), wifi, hostapd and related services on the Raspberry Pi.
 
-This project was inspired by a [**blog post**](http://sirlagz.net/2013/02/06/script-web-configuration-page-for-raspberry-pi/) by SirLagz about using a web page rather than ssh to configure wifi and hostapd settings on the Raspberry Pi. I mostly just prettified the UI by wrapping it in [**SB Admin 2**](https://github.com/BlackrockDigital/startbootstrap-sb-admin-2), a Bootstrap based admin theme. Since then, the project has evolved to include greater control over many aspects of a networked RPi, better security, authentication, support for themes and more. 
-
-We'd be curious to hear about how you use this with your own Pi-powered access points. Ping us on Twitter ([**@billzimmerman**](https://twitter.com/billzimmerman), [**@jrmhaig**](https://twitter.com/jrmhaig) and [**@SirLagz**](https://twitter.com/SirLagz)). Until then, here are some screenshots:
+Based on [**raspap-webgui**](https://github.com/billz/raspap-webgui) using a web page rather than ssh to configure PAT settings on the Raspberry Pi. Includes [**SB Admin 2**](https://github.com/BlackrockDigital/startbootstrap-sb-admin-2), a Bootstrap based admin theme. 
 
 ![](https://i.imgur.com/0f27nen.png)
 ![](https://i.imgur.com/jFDMEy6.png)
@@ -18,8 +16,6 @@ We'd be curious to hear about how you use this with your own Pi-powered access p
  - [Quick installer](#quick-installer)
  - [Manual installation](#manual-installation)
  - [Optional services](#optional-services)
- - [How to contribute](#how-to-contribute)
- - [License](#license)
 
 ## Prerequisites
 You need to install some extra software in order for the Raspberry Pi to act as a WiFi router and access point. If all you're interested in is configuring your RPi as a client on an existing WiFi network, you can skip this step. 
@@ -124,18 +120,3 @@ define('RASPI_OPENVPN_ENABLED', false );
 define('RASPI_TORPROXY_ENABLED', false );
 ```
 Please note that these are only UI's for now. If there's enough interest I'll complete the funtionality for these optional admin screens.
-
-## How to contribute
-
-1. File an issue in the repository, using the bug tracker, describing the
-   contribution you'd like to make. This will help us to get you started on the
-   right foot.
-2. Fork the project in your account and create a new branch:
-   `your-great-feature`.
-3. Commit your changes in that branch.
-4. Open a pull request, and reference the initial issue in the pull request
-   message.
-
-## License
-See the [LICENSE](./LICENSE) file.
-
