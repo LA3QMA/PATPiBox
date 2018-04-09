@@ -18,6 +18,15 @@
  * @see        http://sirlagz.net/2013/02/08/raspap-webgui/
  */
 
+/**
+ * PATPiBox - PAT Winlink Client 
+ * @author     Kai Gunter Brandt <kai.gunter.brandt@gmail.com>
+ * @license    
+ * @version    0.0.1
+ * @link       https://github.com/LA3QMA/PATPiBox
+ * @see        http://
+*/
+
 include_once( 'includes/config.php' );
 include_once( RASPI_CONFIG.'/raspap.php' );
 include_once( 'includes/functions.php' );
@@ -30,6 +39,8 @@ include_once( 'includes/system.php' );
 include_once( 'includes/configure_client.php' );
 include_once( 'includes/networking.php' );
 include_once( 'includes/themes.php' );
+
+// PAT Winlink Client
 
 $output = $return = 0;
 $page = $_GET['page'];
@@ -61,7 +72,7 @@ $theme_url = 'dist/css/' . $theme;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Raspbian WiFi Configuration Portal</title>
+    <title>PAT Winlink Client WiFi Configuration Portal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -104,7 +115,7 @@ $theme_url = 'dist/css/' . $theme;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">RaspAP Wifi Portal v1.3.0</a>
+          <a class="navbar-brand" href="index.php">RaspAP Wifi Portal v1.3.0 - PATPiBox v0.0.1</a>
         </div>
         <!-- /.navbar-header -->
 

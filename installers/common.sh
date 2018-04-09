@@ -1,5 +1,7 @@
 raspap_dir="/etc/raspap"
 raspap_user="www-data"
+patpibox_dir="/etc/patpibox"
+pat_home=$USER
 version=`sed 's/\..*//' /etc/debian_version`
 
 # Determine version, set default home location for lighttpd and 
@@ -54,6 +56,8 @@ function config_installation() {
     echo "Detected ${version_msg}" 
     echo "Install directory: ${raspap_dir}"
     echo "Lighttpd directory: ${webroot_dir}"
+    echo "PAT user: ${pat_home}"
+    echo "ARDOP: ${patpibox_dir}"
     echo -n "Complete installation with these values? [y/N]: "
     read answer
     if [[ $answer != "y" ]]; then
@@ -280,6 +284,125 @@ function install_complete() {
     sudo shutdown -r now || install_error "Unable to execute shutdown"
 }
 
+## PAT Pi Box
+
+# Install PAT
+function install_PAT() {
+	install_log = "Installing PAT"
+	sudo wget -q https://github.com/la5nta/pat/releases/download/v0.6.0/pat_0.6.0_linux_armhf.deb -O /tmp/pat_linux_armhf.deb
+	sudo dpkg -i /tmp/pat_linux_armhf.deb
+
+#	install_log = "Start PAT as a system service"
+#	sudo systemctl enable pat@$USER
+
+}
+
+function install_ARDOP() {
+	install_log = "Installing ARDOP"
+
+#	sudo mkdir $patpibox_dir
+	sudo wget -q http://www.cantab.net/users/john.wiseman/Downloads/Beta/piardopc -O /tmp/piardopc
+	sudo mv /tmp/piardopc $patpibox_dir
+	sudo chmod a+x $patpibox_dir/piardopc
+}
+
+# Install asound
+function install_Asound() {
+	install_log = "Asound"
+
+	sudo wget -q https://www.scannernytt.info/pat/installers/.asoundrc -O $patpibox_dir/.asoundrc
+	sudo chown $pat_home $patpibox_dir/.asoundrc
+
+}
+
+# Verifies existence and permissions
+function create_patpibox_directories() {
+    install_log "Creating PATPiBox directories"
+    if [ -d "$patpibox_dir" ]; then
+        sudo mv $patpibox_dir "$patpibox_dir.`date +%F-%R`" || install_error "Unable to move old '$patpibox_dir' out of the way"
+    fi
+
+    sudo mkdir -p "$patpibox_dir" || install_error "Unable to create directory '$patpibox_dir'"
+
+    # Create a directory for existing file backups.
+    sudo mkdir -p "$patpibox_dir/backups"
+
+    # Create a directory to store networking configs
+    sudo mkdir -p "$patpibox_dir/networking"
+    # Copy existing dhcpcd.conf to use as base config
+    cat /etc/dhcpcd.conf | sudo tee -a /etc/patpibox/networking/defaults
+
+    sudo chown -R $patpibox_user:$patpibox_user "$patpibox_dir" || install_error "Unable to change file ownership for '$patpibox_dir'"
+}
+
+# Fetches latest files from github to webroot
+function download_latest_files_pat() {
+    if [ -d "$webroot_dir" ]; then
+        sudo mv $webroot_dir "$webroot_dir.`date +%F-%R`" || install_error "Unable to remove old webroot directory"
+    fi
+
+    install_log "Cloning latest files from github"
+    git clone https://github.com/LA3QMA/PATPiBox.git /tmp/patpibox-webgui || install_error "Unable to download files from github"
+    sudo mv /tmp/patpibox-webgui $webroot_dir || install_error "Unable to move patpibox-webgui to web root"
+}
+
+# Sets files ownership in web root directory
+function change_file_ownership_pat() {
+    if [ ! -d "$webroot_dir" ]; then
+        install_error "Web root directory doesn't exist"
+    fi
+
+    install_log "Changing file ownership in web root directory"
+    sudo chown -R $patpibox_user:$patpibox_user "$webroot_dir" || install_error "Unable to change file ownership for '$webroot_dir'"
+}
+
+# Check for existing conf files
+function check_for_old_configs_pat() {
+
+    if [ -f /home/pi/.wl2k/config.json ]; then
+        sudo cp /home/pi/.wl2k/config.json "$patpibox_dir/backups/config.json.`date +%F-%R`"
+        sudo ln -sf "$patpibox_dir/backups/config.json.`date +%F-%R`" "$patpibox_dir/backups/config.json"
+    fi
+
+    if [ -f /etc/patpibox/.asoundrc ]; then
+        sudo cp /etc/patpibox/.asoundrc "$patpibox_dir/backups/,asoundrc.`date +%F-%R`"
+        sudo ln -sf "$patpibox_dir/backups/.asroundrc.`date +%F-%R`" "$patpibox_dir/backups/.asoundrc"
+    fi
+}
+
+# Move configuration file to the correct location
+function move_config_file_pat() {
+    if [ ! -d "$patpibox_dir" ]; then
+        install_error "'$patpibox_dir' directory doesn't exist"
+    fi
+
+#    install_log "Moving configuration file to '$patpibox_dir'"
+#    sudo mv "$webroot_dir"/index.php "$patpibox_dir" || install_error "Unable to move files to '$patpibox_dir'"
+#    sudo chown -R $patpibox_user:$patpibox_user "$patpibox_dir" || install_error "Unable to change file ownership for '$patpibox_dir'"
+}
+
+# Set up default configuration
+function default_configuration_pat() {
+
+	install_log = "Make default PAT JSON config"
+
+	sudo chown $pat_home /home/$pat_home/.wl2k
+	sudo chgrp $pat_home /home/$pat_home/.wl2k
+
+}
+
+function move_old_install_pat() {
+
+    if [ -d "/home/$pat_home/.wl2k" ]; then
+        sudo mv /home/$pat_home/.wl2k "$patpibox_dir.`date +%F-%R`" || install_error "Unable to move old .wl2k out of the way"
+    fi
+
+    if [ -d "$patpibox_dir" ]; then
+        sudo mv $patpibox_dir "$patpibox_dir.`date +%F-%R`" || install_error "Unable to move old '$patpibox_dir' out of the way"
+    fi
+
+}
+
 function install_raspap() {
     display_welcome
     config_installation
@@ -287,12 +410,19 @@ function install_raspap() {
     install_dependencies
     enable_php_lighttpd
     create_raspap_directories
+    create_patpibox_directories
     check_for_old_configs
+    check_for_old_configs_pat
     download_latest_files
     change_file_ownership
     create_logging_scripts
     move_config_file
+    move_config_file_pat
     default_configuration
+    default_configuration_pat
+    install_PAT
+    install_ARDOP
+    install_Asound
     patch_system_files
     install_complete
 }
