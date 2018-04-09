@@ -123,9 +123,9 @@ function create_logging_scripts() {
 
 # Fetches latest files from github to webroot
 function download_latest_files() {
-    if [ -d "$webroot_dir" ]; then
-        sudo mv $webroot_dir "$webroot_dir.`date +%F-%R`" || install_error "Unable to remove old webroot directory"
-    fi
+#    if [ -d "$webroot_dir" ]; then
+#        sudo mv $webroot_dir "$webroot_dir.`date +%F-%R`" || install_error "Unable to remove old webroot directory"
+#    fi
 
 #    install_log "Cloning latest files from github"
 #    git clone https://github.com/billz/raspap-webgui /tmp/raspap-webgui || install_error "Unable to download files from github"
