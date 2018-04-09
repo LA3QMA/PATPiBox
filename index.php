@@ -171,6 +171,9 @@ $theme_url = 'dist/css/' . $theme;
 	      <li>
 		<a href="index.php?page=pat_dashboard"><i class="fa fa-dashboard fa-fw"></i> PAT Dashboard</a>
              </li>
+              <li>
+                <a href="index.php?page=pat_config"><i class="fa fa-wrench fa-fw"></i> PAT Configuration</a>
+             </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.navbar-default -->
@@ -226,6 +229,9 @@ $theme_url = 'dist/css/' . $theme;
 	  case "pat_dashboard":
 	    DisplayDashboardPAT();
 	    break;
+          case "pat_config":
+            DisplayPATConfig();
+            break;
           default:
             DisplayDashboard();
         }
