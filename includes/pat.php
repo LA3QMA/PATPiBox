@@ -13,9 +13,9 @@
  */
 
 include_once('includes/config.php');
-include_once('includes/pat_config.php');
-include_once('includes/ardop_config.php');
-include_once('includes/functions.php' );
+//include_once('includes/pat_config.php');
+//include_once('includes/ardop_config.php');
+//include_once('includes/pat_functions.php' );
 include_once('includes/dashboard.php' );
 
 $output = $return = 0;
