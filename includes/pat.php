@@ -123,7 +123,7 @@ $csrf_token = $_SESSION['csrf_token'];
         // handle page actions
         switch( $page ) {
           case "pat_info":
-            DisplayDashboard();
+            DisplayDashboardPAT();
             break;
           case "pat_conf":
             DisplayPATConfig();
@@ -132,7 +132,7 @@ $csrf_token = $_SESSION['csrf_token'];
             ARDOPConfig();
             break;
           default:
-            DisplayDashboard();
+            DisplayDashboardPAT();
         }
         ?>
       </div><!-- /#page-wrapper --> 
