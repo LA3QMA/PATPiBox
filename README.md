@@ -1,6 +1,5 @@
 ![](https://github.com/LA3QMA/PATPiBox/blob/master/img/preview.png)
 
-# `$ raspap-webgui` [![Release 1.3.1](https://img.shields.io/badge/Release-1.3.1-green.svg)](https://github.com/billz/raspap-webgui/releases)
 A simple, responsive web interface to control PAT (winlink client), wifi, hostapd and related services on the Raspberry Pi.
 
 Based on [**raspap-webgui**](https://github.com/billz/raspap-webgui) using a web page rather than ssh to configure PAT settings on the Raspberry Pi. Includes [**SB Admin 2**](https://github.com/BlackrockDigital/startbootstrap-sb-admin-2), a Bootstrap based admin theme. 
