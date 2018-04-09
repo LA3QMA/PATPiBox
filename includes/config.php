@@ -26,4 +26,13 @@ define('RASPI_TORPROXY_ENABLED', false );
 define('RASPI_CONFAUTH_ENABLED', true );
 define('RASPI_CHANGETHEME_ENABLED', true );
 
+// PATPiBox
+define('PAT_HOME', '/var/www/html/includes/');
+
+// PAT UI
+define('PAT_ARDOP_ENABLED', true );
+
+// ARDOP
+define('ARDOP_PATH', "/home/pi/ardop/");
+
 ?>

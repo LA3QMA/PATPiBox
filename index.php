@@ -41,7 +41,7 @@ include_once( 'includes/networking.php' );
 include_once( 'includes/themes.php' );
 
 // PAT Winlink Client
-include _once( 'includes/pat.php' );
+include_once( 'includes/dashboard_pat.php' );
 
 $output = $return = 0;
 $page = $_GET['page'];
@@ -169,7 +169,7 @@ $theme_url = 'dist/css/' . $theme;
                  <a href="index.php?page=system_info"><i class="fa fa-cube fa-fw"></i> System</a>
               </li>
 	      <li>
-		<a href="pat.php?page=pat_dashboard"><i class="fa fa-dashboard fa-fw"></i> PAT Dashboard</a>
+		<a href="index.php?page=pat_dashboard"><i class="fa fa-dashboard fa-fw"></i> PAT Dashboard</a>
              </li>
             </ul>
           </div><!-- /.navbar-collapse -->
