@@ -123,13 +123,17 @@ function create_logging_scripts() {
 
 # Fetches latest files from github to webroot
 function download_latest_files() {
-#    if [ -d "$webroot_dir" ]; then
-#        sudo mv $webroot_dir "$webroot_dir.`date +%F-%R`" || install_error "Unable to remove old webroot directory"
-#    fi
+    if [ -d "$webroot_dir" ]; then
+        sudo mv $webroot_dir "$webroot_dir.`date +%F-%R`" || install_error "Unable to remove old webroot directory"
+    fi
 
 #    install_log "Cloning latest files from github"
 #    git clone https://github.com/billz/raspap-webgui /tmp/raspap-webgui || install_error "Unable to download files from github"
 #    sudo mv /tmp/raspap-webgui $webroot_dir || install_error "Unable to move raspap-webgui to web root"
+
+    install_log "Cloning latest files from github"
+    git clone https://github.com/LA3QMA/PATPiBox.git /tmp/raspap-webgui || install_error "Unable to download files from github"
+    sudo mv /tmp/raspap-webgui $webroot_dir || install_error "Unable to move patpibox-webgui to web root"
 }
 
 # Sets files ownership in web root directory
@@ -313,26 +317,6 @@ function install_Asound() {
 	sudo wget -q https://www.scannernytt.info/pat/installers/.asoundrc -O $patpibox_dir/.asoundrc
 	sudo chown $pat_home $patpibox_dir/.asoundrc
 
-}
-
-# Verifies existence and permissions
-function create_patpibox_directories() {
-    install_log "Creating PATPiBox directories"
-    if [ -d "$patpibox_dir" ]; then
-        sudo mv $patpibox_dir "$patpibox_dir.`date +%F-%R`" || install_error "Unable to move old '$patpibox_dir' out of the way"
-    fi
-
-    sudo mkdir -p "$patpibox_dir" || install_error "Unable to create directory '$patpibox_dir'"
-
-    # Create a directory for existing file backups.
-    sudo mkdir -p "$patpibox_dir/backups"
-
-    # Create a directory to store networking configs
-    sudo mkdir -p "$patpibox_dir/networking"
-    # Copy existing dhcpcd.conf to use as base config
-    cat /etc/dhcpcd.conf | sudo tee -a /etc/patpibox/networking/defaults
-
-    sudo chown -R $patpibox_user:$patpibox_user "$patpibox_dir" || install_error "Unable to change file ownership for '$patpibox_dir'"
 }
 
 # Fetches latest files from github to webroot
