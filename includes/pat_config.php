@@ -389,7 +389,7 @@ foreach ( $json_data['listen'] as $opt => $label) {
 
 function ReadPATConfig() {
 
-$jsondata = json_decode(file_get_contents("/home/kai_gunter_brandt/.wl2k/config.json"), true, 512, JSON_UNESCAPED_UNICODE);
+$jsondata = json_decode(file_get_contents("/home/pi/.wl2k/config.json"), true, 512, JSON_UNESCAPED_UNICODE);
   return $jsondata;
 }
 
