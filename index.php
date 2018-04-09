@@ -42,6 +42,7 @@ include_once( 'includes/themes.php' );
 
 // PAT Winlink Client
 include_once( 'includes/dashboard_pat.php' );
+include_once( 'includes/pat_config.php' );
 
 $output = $return = 0;
 $page = $_GET['page'];

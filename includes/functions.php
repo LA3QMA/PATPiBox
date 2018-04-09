@@ -492,4 +492,18 @@ function SaveTORAndVPNConfig(){
     }
   }
 }
+
+function SelectorOptionsPAT($name, $options, $selected = null) {
+  echo "<select class=\"form-control\" name=\"$name\">";
+  foreach ( $options as $opt => $label) {
+    $select = '';
+    $key = isAssoc($options) ? $opt : $label;
+    if( $key == $selected ) {
+      $select = " selected";
+    }
+    echo "<option value=\"$key\"$select>$key: $label</options>";
+  }
+  echo "</select>";
+}
+
 ?>
