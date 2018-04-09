@@ -340,6 +340,26 @@ function change_file_ownership_pat() {
     sudo chown -R $patpibox_user:$patpibox_user "$webroot_dir" || install_error "Unable to change file ownership for '$webroot_dir'"
 }
 
+# Verifies existence and permissions
+function create_patpibox_directories() {
+    install_log "Creating PATPiBox directories"
+    if [ -d "$patpibox_dir" ]; then
+        sudo mv $patpibox_dir "$patpibox_dir.`date +%F-%R`" || install_error "Unable to move old '$patpibox_dir' out of the way"
+    fi
+
+    sudo mkdir -p "$patpibox_dir" || install_error "Unable to create directory '$patpibox_dir'"
+
+    # Create a directory for existing file backups.
+    sudo mkdir -p "$patpibox_dir/backups"
+
+    # Create a directory to store networking configs
+    sudo mkdir -p "$patpibox_dir/networking"
+    # Copy existing dhcpcd.conf to use as base config
+    cat /etc/dhcpcd.conf | sudo tee -a /etc/patpibox/networking/defaults
+
+    sudo chown -R $patpibox_user:$patpibox_user "$patpibox_dir" || install_error "Unable to change file ownership for '$patpibox_dir'"
+}
+
 # Check for existing conf files
 function check_for_old_configs_pat() {
 

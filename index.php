@@ -170,6 +170,7 @@ $theme_url = 'dist/css/' . $theme;
               </li>
 	      <li>
 		<a href="pat.php?page=pat_dashboard"><i class="fa fa-dashboard fa-fw"></i> PAT Dashboard</a>
+             </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.navbar-default -->
