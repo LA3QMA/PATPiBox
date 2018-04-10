@@ -396,7 +396,7 @@ function default_configuration_pat() {
 	sudo chmod 660 /home/$pat_home/.wl2k/config.json
 
 	sudo echo $pat_home >> $patpibox_dir/user.cfg
-	sudo chmod $pat_home:www-data $patpibox_dir/user.cfg
+	sudo chown $pat_home:www-data $patpibox_dir/user.cfg
 
 }
 
