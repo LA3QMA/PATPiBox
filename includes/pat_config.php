@@ -389,8 +389,18 @@ foreach ( $json_data['listen'] as $opt => $label) {
 
 function ReadPATConfig() {
 
-$jsondata = json_decode(file_get_contents("/home/pi/.wl2k/config.json"), true, 512, JSON_UNESCAPED_UNICODE);
-  return $jsondata;
+if ($file = fopen("/etc/patpibox/user.cfg", "r")) {
+    while(!feof($file)) {
+        $line = fgets($file);
+	
+    }
+    fclose($file);
+	$jsondata = json_decode(file_get_contents("/home/" . $line . "/.wl2k/config.json"), true, 512, JSON_UNESCAPED_UNICODE);
+	return $jsondata;
+}
+
+//$jsondata = json_decode(file_get_contents("/home/pi/.wl2k/config.json"), true, 512, JSON_UNESCAPED_UNICODE);
+//  return $jsondata;
 }
 
 function WritePATConfig() {
