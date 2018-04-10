@@ -103,9 +103,9 @@ function create_raspap_directories() {
     # Copy existing dhcpcd.conf to use as base config
     cat /etc/dhcpcd.conf | sudo tee -a /etc/raspap/networking/defaults
 
-    sudo touch $raspap_dir/user.cfg || install_error "Unable to create user.cfg"
-    sudo echo '$pat_home' > "$raspap_dir/user.cfg" || install_error "Unable to write to user.cfg" 
-    sudo chown $pat_home:www-data $raspap_dir/user.cfg || isntall_error "Unable to change owner to user.cfg"
+#    sudo touch $raspap_dir/user.cfg || install_error "Unable to create user.cfg"
+#    sudo echo '$pat_home' > "$raspap_dir/user.cfg" || install_error "Unable to write to user.cfg" 
+#    sudo chown $pat_home:www-data $raspap_dir/user.cfg || isntall_error "Unable to change owner to user.cfg"
 
     sudo chown -R $raspap_user:$raspap_user "$raspap_dir" || install_error "Unable to change file ownership for '$raspap_dir'"
 }
@@ -404,8 +404,9 @@ function default_configuration_pat() {
 	sudo chown $pat_home:www-data /home/$pat_home/.wl2k/config.json
 	sudo chmod 660 /home/$pat_home/.wl2k/config.json
 
-#	sudo echo $pat_home >> $patpibox_dir/user.cfg
-#	sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"
+	sudo echo $pat_home >> /tmp/user.cfg
+	sudo mv /tmp/user.cfg /etc/patpibox/
+	sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"
 
 }
 
