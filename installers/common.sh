@@ -256,11 +256,10 @@ function patch_system_files() {
         "/bin/cp /etc/raspap/networking/dhcpcd.conf /etc/dhcpcd.conf"
         "/etc/raspap/hostapd/enablelog.sh"
         "/etc/raspap/hostapd/disablelog.sh"
-	"/etc/patpibox"
     )
 
     # Check if sudoers needs patching
-    if [ $(sudo grep -c www-data /etc/sudoers) -ne 29 ]
+    if [ $(sudo grep -c www-data /etc/sudoers) -ne 28 ]
     then
         # Sudoers file has incorrect number of commands. Wiping them out.
         install_log "Cleaning sudoers file"
@@ -351,7 +350,7 @@ function create_patpibox_directories() {
     sudo mkdir -p "$patpibox_dir" || install_error "Unable to create directory '$patpibox_dir'"
 
     sudo touch $patpibox_dir/user.cfg || install_error "Unable to create user.cfg"
-    sudo echo "$pat_home" > $patpibox_dir/user.cfg 
+    sudo echo "$pat_home" > "$patpibox_dir/user.cfg" || install_error "Unable to write to user.cfg" 
     sudo chown $pat_home:www-data $patpibox_dir/user.cfg
 
     # Create a directory for existing file backups.
