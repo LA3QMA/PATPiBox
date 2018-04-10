@@ -103,6 +103,10 @@ function create_raspap_directories() {
     # Copy existing dhcpcd.conf to use as base config
     cat /etc/dhcpcd.conf | sudo tee -a /etc/raspap/networking/defaults
 
+    sudo touch $raspap_dir/user.cfg || install_error "Unable to create user.cfg"
+    sudo echo '$pat_home' > "$raspap_dir/user.cfg" || install_error "Unable to write to user.cfg" 
+    sudo chown $pat_home:www-data $raspap_dir/user.cfg || isntall_error "Unable to change owner to user.cfg"
+
     sudo chown -R $raspap_user:$raspap_user "$raspap_dir" || install_error "Unable to change file ownership for '$raspap_dir'"
 }
 
@@ -349,9 +353,9 @@ function create_patpibox_directories() {
 
     sudo mkdir -p "$patpibox_dir" || install_error "Unable to create directory '$patpibox_dir'"
 
-    sudo touch $patpibox_dir/user.cfg || install_error "Unable to create user.cfg"
-    sudo echo '$pat_home' > "$patpibox_dir/user.cfg" || install_error "Unable to write to user.cfg" 
-    sudo chown $pat_home:www-data $patpibox_dir/user.cfg
+#    sudo touch $patpibox_dir/user.cfg || install_error "Unable to create user.cfg"
+#    sudo echo '$pat_home' > "$patpibox_dir/user.cfg" || install_error "Unable to write to user.cfg" 
+#   sudo chown $pat_home:www-data $patpibox_dir/user.cfg
 
     # Create a directory for existing file backups.
     sudo mkdir -p "$patpibox_dir/backups"
