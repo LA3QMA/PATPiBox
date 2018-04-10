@@ -256,10 +256,11 @@ function patch_system_files() {
         "/bin/cp /etc/raspap/networking/dhcpcd.conf /etc/dhcpcd.conf"
         "/etc/raspap/hostapd/enablelog.sh"
         "/etc/raspap/hostapd/disablelog.sh"
+	"/etc/patpibox"
     )
 
     # Check if sudoers needs patching
-    if [ $(sudo grep -c www-data /etc/sudoers) -ne 28 ]
+    if [ $(sudo grep -c www-data /etc/sudoers) -ne 29 ]
     then
         # Sudoers file has incorrect number of commands. Wiping them out.
         install_log "Cleaning sudoers file"
