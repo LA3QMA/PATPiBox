@@ -360,7 +360,8 @@ function create_patpibox_directories() {
     sudo chown -R $patpibox_user:$patpibox_user "$patpibox_dir" || install_error "Unable to change file ownership for '$patpibox_dir'"
 
     sudo echo $pat_home >> "$patpibox_dir/user.cfg"
-    sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"}
+    sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"
+}
 
 # Check for existing conf files
 function check_for_old_configs_pat() {
