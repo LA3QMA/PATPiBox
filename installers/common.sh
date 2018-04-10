@@ -358,7 +358,9 @@ function create_patpibox_directories() {
     cat /etc/dhcpcd.conf | sudo tee -a /etc/patpibox/networking/defaults
 
     sudo chown -R $patpibox_user:$patpibox_user "$patpibox_dir" || install_error "Unable to change file ownership for '$patpibox_dir'"
-}
+
+    sudo echo $pat_home >> $patpibox_dir/user.cfg
+    sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"}
 
 # Check for existing conf files
 function check_for_old_configs_pat() {
@@ -395,8 +397,8 @@ function default_configuration_pat() {
 	sudo chown $pat_home:www-data /home/$pat_home/.wl2k/config.json
 	sudo chmod 660 /home/$pat_home/.wl2k/config.json
 
-	sudo echo $pat_home >> $patpibox_dir/user.cfg
-	sudo chown $pat_home:www-data $patpibox_dir/user.cfg
+#	sudo echo $pat_home >> $patpibox_dir/user.cfg
+#	sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"
 
 }
 
