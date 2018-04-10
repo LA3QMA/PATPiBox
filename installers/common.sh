@@ -349,8 +349,8 @@ function create_patpibox_directories() {
 
     sudo mkdir -p "$patpibox_dir" || install_error "Unable to create directory '$patpibox_dir'"
 
-    sudo echo $pat_home >> "$patpibox_dir/user.cfg"
-    sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"
+    sudo echo $pat_home >> $patpibox_dir/user.cfg
+    sudo chown $pat_home:www-data $patpibox_dir/user.cfg
 
     # Create a directory for existing file backups.
     sudo mkdir -p "$patpibox_dir/backups"
