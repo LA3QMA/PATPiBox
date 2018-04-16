@@ -398,7 +398,7 @@ function default_configuration_pat() {
 	sudo chown $pat_home /home/$pat_home/.wl2k
 	sudo chgrp $pat_home /home/$pat_home/.wl2k
 	sudo chown $pat_home:www-data /home/$pat_home/.wl2k/config.json
-	sudo chmod 660 /home/$pat_home/.wl2k/config.json
+	sudo chmod 0660 /home/$pat_home/.wl2k/config.json
 
 	sudo echo $pat_home >> /tmp/user.cfg
 	sudo mv /tmp/user.cfg /etc/patpibox/

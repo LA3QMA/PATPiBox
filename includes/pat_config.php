@@ -402,9 +402,10 @@ if ($file = fopen("/etc/patpibox/user.cfg", "r")) {
 
 function WritePATConfig() {
 
-if ($file = fopen("/etc/patpibox/user.cfg", "+w")) {
+if ($file = fopen("/etc/patpibox/user.cfg", "r")) {
         $line = fgets($file);
         $line = str_replace(array("\t", "\n", "\r"),'',$line);
+
         $path = "/home/" . $line . "/.wl2k/config.json";
 
   $json_data['mycall'] = $_POST['mycall'];
@@ -446,10 +447,19 @@ if ($file = fopen("/etc/patpibox/user.cfg", "+w")) {
 
 //  $json_data[''] = $_POST[''];
 
+fclose($file);
   $new_json_data = json_encode($json_data);
+
+if (is_writable($path)) {
+
+echo "ok";
+} else {
+
+echo "not writable";
+}
+
   file_put_contents($path, $new_json_data);
-echo $path;
-  fclose($file);
+
 }
 }
 
