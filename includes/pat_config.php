@@ -32,7 +32,7 @@ $json_data = ReadPATConfig();
 
   if( isset($_POST['WritePATConfig']) ) {
     if (CSRFValidate()) {
-      WritePATConfig($arrMotd, $arrConnectaliases, $arrListen, $arrHamlib, $arrSchedule);
+      WritePATConfig($arrMotd, $arrConnectaliases, $arrListen, $arrHamlib, $arrSchedule, $json_data[]);
     } else {
       error_log('CSRF violation');
     }
@@ -147,7 +147,7 @@ $json_data = ReadPATConfig();
 <?php
 foreach ( $json_data['motd'] as $opt => $label) {
     $key = isAssoc($options) ? $opt : $label;
-//    echo '<br>' . $key . ' __ '. $label . '<br>';
+    echo '<br>' . $key . ' __ '. $label . '<br>';
 }
 ?>                  
                 </div>
@@ -157,7 +157,7 @@ foreach ( $json_data['motd'] as $opt => $label) {
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label for="code">Connect aliases</label>
-                    <?php SelectorOptions('ConnectAliases', $arrConnectaliases, $arrConnectaliases2); ?><br>
+                    <?php SelectorOptionsPAT('ConnectAliases', $arrConnectaliases, $arrConnectaliases2); ?><br>
                     <input type="submit" class="btn btn-warning" name="deletealias" value="Delete selected alias" />
 <?php
 foreach ( $json_data['connect_aliases'] as $opt => $label) {
@@ -402,6 +402,11 @@ if ($file = fopen("/etc/patpibox/user.cfg", "r")) {
 
 function WritePATConfig() {
 
+if ($file = fopen("/etc/patpibox/user.cfg", "+w")) {
+        $line = fgets($file);
+        $line = str_replace(array("\t", "\n", "\r"),'',$line);
+        $path = "/home/" . $line . "/.wl2k/config.json";
+
   $json_data['mycall'] = $_POST['mycall'];
   $json_data['secure_login_password'] = $_POST['secure_login_password'];
   $json_data['auxiliary_addresses'] = array();
@@ -442,7 +447,10 @@ function WritePATConfig() {
 //  $json_data[''] = $_POST[''];
 
   $new_json_data = json_encode($json_data);
-  file_put_contents(PAT_HOME . "config12.json", $new_json_data);
+  file_put_contents($path, $new_json_data);
+echo $path;
+  fclose($file);
+}
 }
 
 ?>
