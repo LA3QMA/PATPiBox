@@ -7,32 +7,10 @@ $json_data = ReadPATConfig();
 
   $status = new StatusMessages();
 
-  $arrAuxiliary = $json_data['auxiliary_addresses'];
-  $arrAuxiliary2 = implode("", $json_data['auxiliary_addresses']);
-
-  $arrMotd   = $json_data['motd'];
-  $arrMotd2   = implode("", $json_data['motd']);
-
-  $arrConnectaliases = $json_data['connect_aliases'];
-  $arrConnectaliases2 = implode("", $json_data['connect_aliases']);
-
-  $arrListen = $json_data['listen'];
-  $arrListen2 = implode("", $json_data['listen']);
-
-  $arrHamlib = $json_data['hamlib_rigs'];
-  $arrHamlib2 = implode("", $json_data['hamlib_rigs']);
-
-  $arrRig = $json_data['rig'];
-  $arrRig2 = implode("", $json_data['rig']);
-
-  $arrAX25 = $json_data['ax25'];
-
-  $arrSchedule = $json_data['schedule'];
-  $arrSchedule2 = implode("", $json_data['schedule']);
-
   if( isset($_POST['WritePATConfig']) ) {
     if (CSRFValidate()) {
-      WritePATConfig($arrMotd, $arrConnectaliases, $arrListen, $arrHamlib, $arrSchedule, $json_data[]);
+      WritePATConfig();
+      $status->addMessage('PAT configuration saved', 'info');
     } else {
       error_log('CSRF violation');
     }
@@ -83,7 +61,7 @@ $json_data = ReadPATConfig();
         <!-- /.panel-heading -->
         <div class="panel-body">
     <p><?php $status->showMessages(); ?></p>
-          <form role="form" action="?page=pat_conf" method="POST">
+          <form role="form" action="?page=pat_config" method="POST">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
               <li class="active"><a href="#basic" data-toggle="tab">Basic</a></li>
@@ -98,7 +76,6 @@ $json_data = ReadPATConfig();
               <li><a href="#telnet" data-toggle="tab">telnet</a></li>
               <li><a href="#gpsd" data-toggle="tab">GPSD</a></li>
               <li><a href="#schedule" data-toggle="tab">Schedule</a></li>
-
               <li><a href="#advanced" data-toggle="tab">Advanced</a></li>
               <li><a href="#logoutput" data-toggle="tab">Logfile Output</a></li>
             </ul>
@@ -447,16 +424,8 @@ if ($file = fopen("/etc/patpibox/user.cfg", "r")) {
 
 //  $json_data[''] = $_POST[''];
 
-fclose($file);
+  fclose($file);
   $new_json_data = json_encode($json_data);
-
-if (is_writable($path)) {
-
-echo "ok";
-} else {
-
-echo "not writable";
-}
 
   file_put_contents($path, $new_json_data);
 
