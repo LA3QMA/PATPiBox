@@ -403,6 +403,7 @@ function default_configuration_pat() {
 	sudo echo $pat_home >> /tmp/user.cfg
 	sudo mv /tmp/user.cfg /etc/patpibox/
 	sudo chown $pat_home:www-data "$patpibox_dir/user.cfg"
+	sudo chmod g+x /home/$pat_home/.wl2k/config.json
 
 }
 
