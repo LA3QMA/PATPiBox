@@ -7,6 +7,17 @@ $json_data = ReadPATConfig();
 
   $status = new StatusMessages();
 
+  $arrMotd   = $json_data['motd'];
+  $arrMotd2   = implode("", $json_data['motd']);
+
+  $arrConnectaliases = $json_data['connect_aliases'];
+  $arrListen = $json_data['listen'];
+  $arrHamlib = $json_data['hamlib_rigs'];
+  $arrAX25 = $json_data['ax25'];
+  $arrRig = $json_data['rig'];
+  $arrSchedule = $json_data['schedule'];
+
+
   if( isset($_POST['WritePATConfig']) ) {
     if (CSRFValidate()) {
       WritePATConfig();
@@ -37,8 +48,19 @@ $json_data = ReadPATConfig();
     }
   } elseif (isset($_POST['deletemotd'])) {
     // $_POST['MOTD']
-    $status->addMessage('MOTD line deleted:' , 'info');
-//    unset($json_data['motd'][1]);
+
+    $key = array_search($_POST['MOTD'], $json_data['motd']);
+    $status->addMessage('MOTD line ' . $_POST['MOTD'] . ' deleted:' , 'info');
+
+    unset($json_data['motd']);
+    array_values($json_data['motd']);
+
+foreach ( $json_data['motd'] as $opt => $label) {
+    $key = isAssoc($options) ? $opt : $label;
+    echo '<br>' . $key . ' __ '. $label . '<br>';
+}
+
+//	WritePATConfig();
   }
 
 //

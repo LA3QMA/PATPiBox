@@ -297,7 +297,8 @@ function install_complete() {
 # Install PAT
 function install_PAT() {
 	install_log = "Installing PAT"
-	sudo wget -q https://github.com/la5nta/pat/releases/download/v0.6.0/pat_0.6.0_linux_armhf.deb -O /tmp/pat_linux_armhf.deb
+#	sudo wget -q https://github.com/la5nta/pat/releases/download/v0.6.0/pat_0.6.0_linux_armhf.deb -O /tmp/pat_linux_armhf.deb
+	sudo wget -q https://github.com/la5nta/pat/releases/download/v0.6.1/pat_0.6.1_linux_armhf.deb -O /tmp/pat_linux_armhf.deb
 	sudo dpkg -i /tmp/pat_linux_armhf.deb
 
 #	install_log = "Start PAT as a system service"
