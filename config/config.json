@@ -1,0 +1,54 @@
+{
+  "mycall": "N0CALL",
+  "secure_login_password": "secret",
+  "auxiliary_addresses": [],
+  "locator": "JP20PI",
+  "http_addr": "localhost:8081",
+  "motd": [
+    "Open source Winlink client - getpat.io"
+  ],
+  "connect_aliases": {
+    "telnet": "telnet://{mycall}:CMSTelnet@cms.winlink.org:8772/wl2k"
+  },
+  "listen": [],
+  "hamlib_rigs": {},
+  "ax25": {
+    "port": "wl2k",
+    "beacon": {
+      "every": 3600,
+      "message": "Winlink P2P",
+      "destination": "IDENT"
+    },
+    "rig": ""
+  },
+  "serial-tnc": {
+    "path": "/dev/ttyUSB0",
+    "baudrate": 9600,
+    "type": "Kenwood"
+  },
+  "winmor": {
+    "addr": "localhost:8500",
+    "inbound_bandwidth": 1600,
+    "drive_level": 0,
+    "rig": "",
+    "ptt_ctrl": false
+  },
+  "ardop": {
+    "addr": "localhost:8515",
+    "arq_bandwidth": {
+      "Forced": false,
+      "Max": 500
+    },
+    "rig": "",
+    "ptt_ctrl": false,
+    "beacon_interval": 0,
+    "cwid_enabled": true
+  },
+  "telnet": {
+    "listen_addr": ":8774",
+    "password": ""
+  },
+  "gpsd_addr": "localhost:2947",
+  "schedule": {},
+  "version_reporting_disabled": false
+}
