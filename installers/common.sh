@@ -397,7 +397,7 @@ function default_configuration_pat() {
 
 	install_log = "Make default PAT JSON config"
 
-	sudo mv /tmp/config.json /home$pat_home/.wl2k
+	sudo mv /tmp/config.json /home/$pat_home/.wl2k
 
 	sudo chown $pat_home /home/$pat_home/.wl2k
 	sudo chgrp $pat_home /home/$pat_home/.wl2k
