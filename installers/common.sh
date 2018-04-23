@@ -300,8 +300,6 @@ function install_PAT() {
 	sudo wget -q https://github.com/la5nta/pat/releases/download/v0.6.1/pat_0.6.1_linux_armhf.deb -O /tmp/pat_linux_armhf.deb
 	sudo dpkg -i /tmp/pat_linux_armhf.deb
 
-	sudo wget -q https://raw.githubusercontent.com/LA3QMA/PATPiBox/master/config/config.json -O /tmp/config.json
-
 #	install_log = "Start PAT as a system service"
 #	sudo systemctl enable pat@$USER
 
@@ -397,6 +395,7 @@ function default_configuration_pat() {
 
 	install_log = "Make default PAT JSON config"
 
+	sudo wget -q https://raw.githubusercontent.com/LA3QMA/PATPiBox/master/config/config.json -O /tmp/config.json
 	sudo mv "/tmp/config.json" "/home/$pat_home/.wl2k/"
 
 	sudo chown $pat_home /home/$pat_home/.wl2k
